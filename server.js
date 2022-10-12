@@ -3,6 +3,9 @@
 const express = require('express');
 const path = require('path')
 
+// importing route files
+const registrationRoutes = require('./routes/registeredRoutes');
+
 // Instantiations
 const app = express(); //Initialising the app instance from express
 const port = 3002;
@@ -23,9 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public/uploads', express.static(__dirname + '/public/uploads')) 
 
 // Routes
-app.get('/', (req,res) => {
-    res.render('landing')
-});
+app.use('/user', registrationRoutes);
+
+app.get('/', (req,res)=>{
+  res.render('layout')
+})
 
 // For invalid routes
 app.get('*', (req, res) => {
